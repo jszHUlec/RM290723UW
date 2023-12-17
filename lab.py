@@ -1,0 +1,1 @@
+print("Moj pierwszy lab")
