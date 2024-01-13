@@ -6,14 +6,20 @@
 # jesli odpowie 'yes' (lub tak) to wyswietlamy utworzona liste
 
 car_brands=[]
-print('Enter car brands')
-for i in range(4):
+print('Enter four car brands. Enter exit if you want to finish')
+while True:
     car_brand = input()
+    if car_brand.lower() == 'exit':
+        break
     car_brands.append(car_brand)
-answer = input('Do you want to see your answers? Enter Y or N ')
-print("***",answer.upper(),"***") #.upper() zamienia tekst, na duze znaki
-if answer.upper() == "Y":
-    for i in car_brands:
-       print (i)
-else:
-    print('Ok')
+while True:
+    answer = input('Do you want to see your answers? Enter Y or N ')
+    if answer.upper() == "Y":
+        for i in car_brands:
+            print(i)
+        break
+    elif answer.upper() == "N":
+        print('bye-bye')
+        break
+    else:
+        print('Error! Enter Y or N')
