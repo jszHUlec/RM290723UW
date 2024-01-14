@@ -1,0 +1,3 @@
+
+class BledyWyborUzytkownikError(Exception):
+    pass

@@ -13,7 +13,7 @@ def wprowadzLog():
     global db
     now = datetime.datetime.now()
     log = input("podaj log/text: ")
-    db.append(f"{now.year}.{now.month}.{now.day}::{now.hour}:{now.minute} - {log}")
+    db.append(f"{now.year}.{now.month}.{now.day} :: {now.hour}:{now.minute} - {log}")
 
 
 def wysweitlLog():
