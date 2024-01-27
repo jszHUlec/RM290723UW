@@ -1,23 +1,23 @@
 import requests
+import re
 from bs4 import BeautifulSoup
-
-def pobierz_plik_pdf(url):
-    response = requests.get(url, verify=False)
+def pobierz_pliki(url):
+    response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
 
-    # Znajdź element <a> z atrybutem href wskazujący na plik PDF
-    link = soup.find("a", attrs={"href": True})
+    # Znajdź wszystkie linki do plików PDF
+    linki = soup.find_all("a", attrs={"href": re.compile(".*pdf")})
 
-    # Pobierz link do pliku PDF
-    pdf_url = link["href"]
+    # Pobierz każdy plik PDF
+    for link in linki:
+        url = link["href"]
+        nazwa_pliku = url.split("/")[-1]
 
-    # Pobierz plik PDF
-    response = requests.get(pdf_url)
-
-    # Zapisz plik PDF
-    with open("plik.pdf", "wb") as f:
-        f.write(response.content)
+        # Pobierz plik
+        response = requests.get(url)
+        with open("/tmp/" + nazwa_pliku, "wb") as f:
+            f.write(response.content)
 
 if __name__ == "__main__":
-    url = "https://archiwum.mz.gov.pl/zdrowie-i-profilaktyka/grypa/materialy-do-pobrania/Prawda_i_mity_na_temat_grypy.pdf"
-    pobierz_plik_pdf(url)
+    url = "https://archiwum.mz.gov.pl/zdrowie-i-profilaktyka/grypa/materialy-do-pobrania/"
+    pobierz_pliki(url)
